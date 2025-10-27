@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>💊 Healvia AI — Test rejimi</title>
+  <style>
+    body {
+      font-family: "Poppins", sans-serif;
+      background: linear-gradient(135deg, #4facfe, #00f2fe);
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      text-align: center;
+      margin: 0;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 30px;
+      border-radius: 20px;
+      max-width: 400px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+      animation: fadeIn 0.7s ease-in-out;
+    }
+
+    h1 {
+      font-size: 26px;
+      margin-bottom: 15px;
+    }
+
+    p {
+      font-size: 16px;
+      line-height: 1.5;
+    }
+
+    .langs {
+      margin-top: 25px;
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+    }
+
+    button {
+      border: none;
+      padding: 10px 15px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 600;
+      transition: all 0.3s;
+    }
+
+    button:hover {
+      transform: scale(1.05);
+      opacity: 0.9;
+    }
+
+    .uz { background: #1abc9c; color: white; }
+    .ru { background: #3498db; color: white; }
+    .en { background: #9b59b6; color: white; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>💊 Healvia AI</h1>
+    <p id="message">
+      Healvia AI hozir test rejimida. <br>
+      Iltimos, keyinroq qayta urinib ko‘ring.
+    </p>
+
+    <div class="langs">
+      <button class="uz" onclick="setLang('uz')">🇺🇿 O‘zbekcha</button>
+      <button class="ru" onclick="setLang('ru')">🇷🇺 Русский</button>
+      <button class="en" onclick="setLang('en')">🇬🇧 English</button>
+    </div>
+  </div>
+
+  <script>
+    const messages = {
+      uz: "Healvia AI hozir test rejimida. <br>Iltimos, keyinroq qayta urinib ko‘ring.",
+      ru: "Healvia AI сейчас находится в тестовом режиме. <br>Пожалуйста, попробуйте позже.",
+      en: "Healvia AI is currently in testing mode. <br>Please try again later."
+    };
+
+    function setLang(lang) {
+      document.getElementById("message").innerHTML = messages[lang];
+    }
+  </script>
+</body>
+</html>

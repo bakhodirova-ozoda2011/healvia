@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Healvia — Dorixona xizmati</title>
+  <style>
+    body {
+      font-family: "Poppins", sans-serif;
+      background: linear-gradient(135deg, #f3fffd, #e8f9f7, #e3f2fd);
+      margin: 0;
+      color: #222;
+    }
+    header {
+      text-align: center;
+      background: #00b894;
+      color: white;
+      padding: 20px;
+      border-bottom-left-radius: 20px;
+      border-bottom-right-radius: 20px;
+    }
+    .container {
+      max-width: 900px;
+      margin: 30px auto;
+      background: white;
+      border-radius: 20px;
+      padding: 25px;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    }
+    .search-bar {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 25px;
+    }
+    input {
+      flex: 1;
+      padding: 12px;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+    }
+    button {
+      background: #00b894;
+      color: white;
+      border: none;
+      padding: 12px 18px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 15px;
+      transition: 0.3s;
+    }
+    button:hover {
+      background: #00916e;
+    }
+    .drug-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+    }
+    .drug-card {
+      background: #f9f9f9;
+      border-radius: 15px;
+      padding: 15px;
+      box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
+      transition: 0.3s;
+    }
+    .drug-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 5px 18px rgba(0, 0, 0, 0.1);
+    }
+    .drug-card h3 {
+      color: #00b894;
+      margin: 0 0 10px 0;
+    }
+    .ai-box {
+      background: #e8fff2;
+      border-left: 5px solid #00b894;
+      border-radius: 10px;
+      padding: 15px;
+      margin-top: 25px;
+    }
+
+    /* ✅ Dorixona hamkorlik bo‘limi */
+    .partner-section {
+      background: linear-gradient(135deg, #e0fff7, #f9fffc);
+      border-radius: 15px;
+      margin-top: 40px;
+      padding: 25px;
+      text-align: center;
+      box-shadow: 0 3px 15px rgba(0, 0, 0, 0.05);
+    }
+    .partner-section h2 {
+      color: #00b894;
+      margin-bottom: 10px;
+    }
+    .partner-section p {
+      font-size: 16px;
+      color: #555;
+    }
+    .partner-section a {
+      display: inline-block;
+      margin-top: 15px;
+      text-decoration: none;
+      background: #00b894;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 8px;
+      transition: 0.3s;
+    }
+    .partner-section a:hover {
+      background: #009973;
+    }
+    .contact-info {
+      margin-top: 15px;
+      font-size: 15px;
+      color: #333;
+    }
+    .contact-info b {
+      color: #00b894;
+    }
+
+    footer {
+      text-align: center;
+      margin: 30px 0;
+      color: #777;
+      font-size: 13px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>💊 Healvia Dorixona Xizmati</h1>
+    <p id="welcome-text"></p>
+  </header>
+
+  <div class="container">
+    <div class="search-bar">
+      <input type="text" id="searchInput" placeholder="Masalan: Paratsetamol, Ibuprofen..." />
+      <button onclick="searchDrug()">🔍 Qidirish</button>
+    </div>
+
+    <div id="drug-results" class="drug-list"></div>
+
+    <div class="ai-box">
+      <h3>🤖 AI tavsiyasi</h3>
+      <p id="ai-advice">Savol kiriting yoki dorini tanlang, Healvia siz uchun eng mosini tavsiya qiladi.</p>
+      <button onclick="askAI()">AI Tavsiyasi olish</button>
+    </div>
+
+    <!-- ✅ Dorixona hamkorlik bo‘limi -->
+    <div class="partner-section">
+      <h2>🏪 Dorixonangiz bormi?</h2>
+      <p>Healvia tarmog‘iga qo‘shilib, dorilaringizni onlayn sotishni boshlang.  
+      Biz sizga bepul tizim, reklama va mijozlar oqimini ta’minlaymiz 💚</p>
+      <a href="mailto:healvia.partner@gmail.com">📧 Bizga yozing</a>
+      <div class="contact-info">
+        <p>Yoki telefon orqali bog‘laning: <b>+998 90 123 45 67</b></p>
+      </div>
+    </div>
+  </div>
+
+  <footer>© 2025 Healvia — Shaxsiy dorixona yordamchisi</footer>
+
+  <script>
+    // 🔹 Profilni yuklash
+    const profile = JSON.parse(localStorage.getItem("healvia_profile"));
+    const welcome = document.getElementById("welcome-text");
+    if (profile) {
+      welcome.textContent = `Assalomu alaykum, ${profile.name}! Dorilar ro‘yxatidan sizga moslarini topamiz.`;
+    } else {
+      welcome.textContent = `Assalomu alaykum! Avval profil ma’lumotlaringizni to‘ldiring (profile.html).`;
+    }
+
+    // 🔹 Dorilar bazasi (demo)
+    const drugs = [
+      { name: "Paratsetamol", desc: "Og‘riqni kamaytiradi va isitmani tushiradi.", price: "12 000 so‘m", category: "Analgetik" },
+      { name: "Ibuprofen", desc: "Yallig‘lanishga qarshi, og‘riqni kamaytiruvchi dori.", price: "18 000 so‘m", category: "NSAID" },
+      { name: "Ribavirin", desc: "Virusli infeksiyalar (masalan, gepatit C)da qo‘llaniladi.", price: "45 000 so‘m", category: "Antiviral" },
+      { name: "Omeprazol", desc: "Oshqozon kislotasini kamaytiradi, gastritda yordam beradi.", price: "23 000 so‘m", category: "Antasid" },
+      { name: "Cetirizin", desc: "Allergiya belgilari — burun oqishi, qichishish va toshmaga qarshi.", price: "15 000 so‘m", category: "Antihistamin" }
+    ];
+
+    // 🔹 Qidiruv funksiyasi
+    function searchDrug() {
+      const query = document.getElementById("searchInput").value.toLowerCase();
+      const resultDiv = document.getElementById("drug-results");
+      resultDiv.innerHTML = "";
+
+      const results = drugs.filter(d => d.name.toLowerCase().includes(query));
+      if (results.length === 0) {
+        resultDiv.innerHTML = "<p>❌ Dori topilmadi.</p>";
+        return;
+      }
+
+      results.forEach(d => {
+        const card = document.createElement("div");
+        card.className = "drug-card";
+        card.innerHTML = `
+          <h3>${d.name}</h3>
+          <p>${d.desc}</p>
+          <p><b>Kategoriya:</b> ${d.category}</p>
+          <p><b>Narx:</b> ${d.price}</p>
+          <button onclick="addToCart('${d.name}')">🛒 Savatga qo‘shish</button>
+        `;
+        resultDiv.appendChild(card);
+      });
+    }
+
+    // 🔹 Savat funksiyasi
+    function addToCart(drugName) {
+      alert(`✅ ${drugName} savatga qo‘shildi!`);
+    }
+
+    // 🔹 AI tavsiyasi (demo)
+    function askAI() {
+      const profileGoal = profile?.goal || "sog‘lomlik";
+      const aiBox = document.getElementById("ai-advice");
+      aiBox.textContent = "AI tahlil qilmoqda... 🤔";
+
+      setTimeout(() => {
+        if (profileGoal === "vazn") {
+          aiBox.textContent = "Sizga ibuprofen va paratsetamol kabi yengil analgetiklar mos. Shuningdek, ortiqcha vazn uchun yurish mashqlari tavsiya etiladi.";
+        } else if (profileGoal === "stress") {
+          aiBox.textContent = "Tinchlantiruvchi (sedativ) choylar va Cetirizin allergiya bo‘lsa yordam beradi.";
+        } else {
+          aiBox.textContent = "Ribavirin virusli kasalliklarda, Omeprazol oshqozon uchun mos. Dorilarni shifokor tavsiyasiga binoan qabul qiling.";
+        }
+      }, 1200);
+    }
+  </script>
+</body>
+</html>

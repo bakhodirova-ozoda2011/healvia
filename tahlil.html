@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Healvia Tahlil — Sog‘lig‘ingizni nazorat qiling</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: "Poppins", sans-serif;
+      background: linear-gradient(135deg, #f0fff4, #ffffff);
+      color: #333;
+    }
+
+    header {
+      background: #00b894;
+      color: white;
+      text-align: center;
+      padding: 18px;
+      font-size: 22px;
+      font-weight: 600;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 30px auto;
+      background: white;
+      border-radius: 15px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+      padding: 30px;
+    }
+
+    h2 {
+      text-align: center;
+      color: #009e7f;
+      margin-bottom: 25px;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    label {
+      font-weight: 600;
+      color: #555;
+    }
+
+    input, select, textarea {
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      font-size: 15px;
+      outline: none;
+      transition: 0.3s;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      border-color: #00b894;
+      box-shadow: 0 0 5px rgba(0,184,148,0.3);
+    }
+
+    button {
+      background: #00b894;
+      color: white;
+      padding: 14px;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.3s;
+      font-weight: 600;
+    }
+
+    button:hover {
+      background: #00926f;
+    }
+
+    .results {
+      margin-top: 30px;
+      background: #f8fdf9;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: inset 0 0 8px rgba(0,0,0,0.05);
+    }
+
+    .result-item {
+      margin-bottom: 12px;
+      line-height: 1.5;
+    }
+
+    .ai-response {
+      background: #e9fff4;
+      border-left: 5px solid #00b894;
+      padding: 15px;
+      margin-top: 15px;
+      border-radius: 10px;
+      font-style: italic;
+    }
+
+    footer {
+      text-align: center;
+      padding: 15px;
+      color: #777;
+      font-size: 13px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>🔬 Healvia — Tahlil natijalari</header>
+
+  <div class="container">
+    <h2>Tahlil ma’lumotlarini kiriting</h2>
+    <form id="analysisForm">
+      <label for="name">👤 F.I.Sh:</label>
+      <input type="text" id="name" placeholder="Ismingiz va familiyangiz" required>
+
+      <label for="age">🎂 Yosh:</label>
+      <input type="number" id="age" placeholder="Yoshingiz" required>
+
+      <label for="testType">🧪 Tahlil turi:</label>
+      <select id="testType" required>
+        <option value="">Tanlang...</option>
+        <option value="qon">Qon tahlili</option>
+        <option value="siydik">Siydik tahlili</option>
+        <option value="yurak">EKG (Yurak faoliyati)</option>
+        <option value="bosim">Qon bosimi</option>
+      </select>
+
+      <label for="result">📊 Tahlil natijasi (ko‘rsatkichlar):</label>
+      <textarea id="result" rows="4" placeholder="Masalan: Gemoglobin: 110 g/l, Leikosit: 8.5 x10^9/l ..." required></textarea>
+
+      <button type="submit">🔍 Tahlilni tahlil qilish</button>
+    </form>
+
+    <div id="output" class="results" style="display:none;">
+      <h3>📄 Tahlil natijasi:</h3>
+      <div id="data"></div>
+      <div id="aiAdvice" class="ai-response"></div>
+    </div>
+  </div>
+
+  <footer>© 2025 Healvia — Sog‘lig‘ingiz biz uchun muhim 💚</footer>
+
+  <script>
+    const form = document.getElementById("analysisForm");
+    const output = document.getElementById("output");
+    const dataDiv = document.getElementById("data");
+    const aiAdvice = document.getElementById("aiAdvice");
+
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+
+      const name = document.getElementById("name").value;
+      const age = document.getElementById("age").value;
+      const testType = document.getElementById("testType").value;
+      const result = document.getElementById("result").value;
+
+      dataDiv.innerHTML = `
+        <div class="result-item"><strong>F.I.Sh:</strong> ${name}</div>
+        <div class="result-item"><strong>Yosh:</strong> ${age}</div>
+        <div class="result-item"><strong>Tahlil turi:</strong> ${testType}</div>
+        <div class="result-item"><strong>Natija:</strong> ${result}</div>
+      `;
+
+      output.style.display = "block";
+
+      // Mini AI analiz (soddalashtirilgan)
+      let advice = "";
+      if (result.toLowerCase().includes("gemoglobin")) {
+        advice = "Gemoglobin darajasi past bo‘lsa, temirga boy oziq-ovqatlar (go‘sht, ismaloq) iste’mol qiling.";
+      } else if (testType === "bosim") {
+        advice = "Qon bosimingizni kuzatib boring. Tuzli ovqatni kamaytiring va dam olishga harakat qiling.";
+      } else if (testType === "yurak") {
+        advice = "EKG natijasi bo‘yicha yurak ritmi o‘zgarishlari bo‘lsa, kardiologga murojaat qiling.";
+      } else {
+        advice = "Tahlil natijalaringizni shifokor bilan birgalikda ko‘rib chiqish tavsiya etiladi.";
+      }
+
+      aiAdvice.innerHTML = `🧠 Healvia AI tavsiyasi:<br>${advice}`;
+    });
+  </script>
+</body>
+</html>

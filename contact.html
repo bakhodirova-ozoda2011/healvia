@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Healvia | Contact</title>
+  <style>
+    body {
+      font-family: "Poppins", sans-serif;
+      background: linear-gradient(135deg, #b6f0c7, #68d391);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0;
+    }
+    .contact-box {
+      background: #fff;
+      padding: 30px 40px;
+      border-radius: 16px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      width: 420px;
+      text-align: center;
+    }
+    h2 {
+      color: #2f855a;
+      margin-bottom: 10px;
+    }
+    p {
+      color: #4a5568;
+      margin-bottom: 20px;
+    }
+    input, textarea {
+      width: 100%;
+      margin: 8px 0;
+      padding: 12px;
+      border: 1px solid #c6f6d5;
+      border-radius: 8px;
+      font-size: 15px;
+    }
+    input:focus, textarea:focus {
+      border-color: #38a169;
+      box-shadow: 0 0 5px rgba(72, 187, 120, 0.5);
+      outline: none;
+    }
+    button {
+      background: #38a169;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      font-size: 16px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: 0.3s;
+      width: 100%;
+    }
+    button:hover {
+      background: #2f855a;
+    }
+    #status {
+      margin-top: 10px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="contact-box">
+    <h2 id="title">Biz bilan bog‘laning</h2>
+    <p id="subtitle">Savolingiz, fikringiz yoki taklifingizni yuboring 👇</p>
+    <form id="contactForm">
+      <input type="text" id="name" placeholder="Ismingiz" required />
+      <input type="email" id="email" placeholder="Email manzilingiz" required />
+      <textarea id="message" rows="5" placeholder="Xabaringiz..." required></textarea>
+      <button type="submit" id="sendBtn">Yuborish</button>
+      <div id="status"></div>
+    </form>
+  </div>
+
+  <script>
+    // === 1️⃣ Tillar obyekti ===
+    const translations = {
+      uz: {
+        title: "📞 Biz bilan bog‘laning",
+        subtitle: "Savolingiz, fikringiz yoki taklifingizni yuboring 👇",
+        name: "Ismingiz",
+        email: "Email manzilingiz",
+        message: "Xabaringiz...",
+        send: "Yuborish",
+        sending: "⏳ Yuborilmoqda...",
+        success: "✅ Xabar yuborildi! Rahmat.",
+        error: "❌ Xatolik: server bilan aloqa yo‘q.",
+      },
+      ru: {
+        title: "📞 Свяжитесь с нами",
+        subtitle: "Отправьте свой вопрос, отзыв или предложение 👇",
+        name: "Ваше имя",
+        email: "Ваш email",
+        message: "Ваше сообщение...",
+        send: "Отправить",
+        sending: "⏳ Отправка...",
+        success: "✅ Сообщение успешно отправлено!",
+        error: "❌ Ошибка: нет связи с сервером.",
+      },
+      en: {
+        title: "📞 Contact Us",
+        subtitle: "Send your question, feedback, or suggestion 👇",
+        name: "Your name",
+        email: "Your email address",
+        message: "Your message...",
+        send: "Send",
+        sending: "⏳ Sending...",
+        success: "✅ Message sent successfully!",
+        error: "❌ Error: no connection to server.",
+      },
+      fr: {
+        title: "📞 Contactez-nous",
+        subtitle: "Envoyez votre question, avis ou suggestion 👇",
+        name: "Votre nom",
+        email: "Votre adresse e-mail",
+        message: "Votre message...",
+        send: "Envoyer",
+        sending: "⏳ Envoi...",
+        success: "✅ Message envoyé avec succès!",
+        error: "❌ Erreur : pas de connexion au serveur.",
+      },
+    };
+
+    // === 2️⃣ Tanlangan tilni olish ===
+    const lang = localStorage.getItem("language") || "uz";
+    const t = translations[lang];
+
+    // === 3️⃣ Matnlarni yangilash ===
+    document.getElementById("title").textContent = t.title;
+    document.getElementById("subtitle").textContent = t.subtitle;
+    document.getElementById("name").placeholder = t.name;
+    document.getElementById("email").placeholder = t.email;
+    document.getElementById("message").placeholder = t.message;
+    document.getElementById("sendBtn").textContent = t.send;
+
+    // === 4️⃣ Forma yuborish ===
+    const form = document.getElementById("contactForm");
+    const statusDiv = document.getElementById("status");
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      statusDiv.textContent = t.sending;
+      statusDiv.style.color = "#444";
+
+      const data = {
+        name: document.getElementById("name").value,
+        email: document.getElementById("email").value,
+        message: document.getElementById("message").value,
+        lang,
+      };
+
+      try {
+        const res = await fetch("http://localhost:3000/send-message", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data),
+        });
+        const result = await res.json();
+        if (result.success) {
+          statusDiv.textContent = t.success;
+          statusDiv.style.color = "green";
+          form.reset();
+        } else {
+          statusDiv.textContent = t.error;
+          statusDiv.style.color = "red";
+        }
+      } catch (err) {
+        statusDiv.textContent = t.error;
+        statusDiv.style.color = "red";
+      }
+    });
+  </script>
+</body>
+</html>

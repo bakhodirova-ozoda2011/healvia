@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title data-key="register_title">Ro‘yxatdan o‘tish — Healvia</title>
+  <style>
+    body {
+      font-family: "Poppins", sans-serif;
+      background: linear-gradient(135deg, #e3fdfd, #ffffff, #f0f5ff);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+    .register-box {
+      background: white;
+      padding: 40px 50px;
+      border-radius: 12px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+      text-align: center;
+      width: 340px;
+    }
+    h2 {
+      color: #00b894;
+      margin-bottom: 20px;
+    }
+    input {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0 15px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 16px;
+    }
+    button {
+      background: #00b894;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    button:hover { background: #009973; }
+    a {
+      display: block;
+      margin-top: 10px;
+      color: #00b894;
+      text-decoration: none;
+    }
+    .lang-box {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="lang-box">
+    <select id="language">
+      <option value="uz">UZ</option>
+      <option value="ru">RU</option>
+      <option value="en">EN</option>
+    </select>
+  </div>
+
+  <div class="register-box">
+    <h2 data-key="register_title">Ro‘yxatdan o‘tish</h2>
+    <input type="text" id="username" placeholder="Ismingiz" data-key="name_placeholder" required />
+    <input type="email" id="email" placeholder="Email manzilingiz" data-key="email_placeholder" required />
+    <input type="password" id="password" placeholder="Parol" data-key="password_placeholder" required />
+    <button id="submitBtn" data-key="submit_btn">Tasdiqlash</button>
+    <a href="login.html" data-key="login_link">Kirish</a>
+  </div>
+
+  <script>
+    const translations = {
+      uz: {
+        register_title: "Ro‘yxatdan o‘tish",
+        name_placeholder: "Ismingiz",
+        email_placeholder: "Email manzilingiz",
+        password_placeholder: "Parol",
+        submit_btn: "Tasdiqlash",
+        login_link: "Kirish",
+        success: "Siz muvaffaqiyatli ro‘yxatdan o‘tdingiz!",
+        fill_all: "Iltimos, barcha maydonlarni to‘ldiring!"
+      },
+      ru: {
+        register_title: "Регистрация",
+        name_placeholder: "Ваше имя",
+        email_placeholder: "Ваш email",
+        password_placeholder: "Пароль",
+        submit_btn: "Подтвердить",
+        login_link: "Войти",
+        success: "Вы успешно зарегистрировались!",
+        fill_all: "Пожалуйста, заполните все поля!"
+      },
+      en: {
+        register_title: "Register",
+        name_placeholder: "Your name",
+        email_placeholder: "Your email",
+        password_placeholder: "Password",
+        submit_btn: "Submit",
+        login_link: "Login",
+        success: "You have successfully registered!",
+        fill_all: "Please fill in all fields!"
+      }
+    };
+
+    const langSelect = document.getElementById("language");
+    const savedLang = localStorage.getItem("language") || "uz";
+    langSelect.value = savedLang;
+    applyTranslations(savedLang);
+
+    langSelect.addEventListener("change", (e) => {
+      const lang = e.target.value;
+      localStorage.setItem("language", lang);
+      applyTranslations(lang);
+    });
+
+    function applyTranslations(lang) {
+      document.querySelectorAll("[data-key]").forEach((el) => {
+        const key = el.getAttribute("data-key");
+        if (translations[lang][key]) {
+          if (el.placeholder) el.placeholder = translations[lang][key];
+          else el.textContent = translations[lang][key];
+        }
+      });
+    }
+
+    document.getElementById("submitBtn").addEventListener("click", () => {
+      const name = document.getElementById("username").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const password = document.getElementById("password").value.trim();
+      const lang = localStorage.getItem("language") || "uz";
+
+      if (!name || !email || !password) {
+        alert(translations[lang].fill_all);
+        return;
+      }
+
+      const user = { name, email, password };
+      localStorage.setItem("healvia_user", JSON.stringify(user));
+      localStorage.setItem("healvia_registered", "true");
+
+      alert(translations[lang].success);
+      window.location.href = "login.html";
+    });
+  </script>
+</body>
+</html>

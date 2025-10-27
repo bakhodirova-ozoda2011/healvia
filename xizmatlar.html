@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Healvia — Xizmatlar</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+  <style>
+    body {
+      margin: 0;
+      font-family: "Poppins", sans-serif;
+      background: linear-gradient(135deg, #f8fff9, #ffffff);
+      color: #333;
+      padding-bottom: 80px; /* navbar joyi uchun */
+    }
+
+    header {
+      background: #00b894;
+      color: white;
+      text-align: center;
+      padding: 18px;
+      font-size: 22px;
+      font-weight: 600;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    }
+
+    .lang {
+      position: absolute;
+      top: 15px;
+      right: 20px;
+    }
+
+    .lang select {
+      background: white;
+      border: none;
+      padding: 6px 10px;
+      border-radius: 6px;
+      font-weight: 500;
+      color: #00b894;
+      cursor: pointer;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 40px auto;
+      padding: 20px;
+      text-align: center;
+    }
+
+    h2 {
+      color: #009e7f;
+      font-size: 26px;
+      margin-bottom: 10px;
+    }
+
+    p.subtitle {
+      color: #555;
+      margin-bottom: 40px;
+    }
+
+    .services {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 25px;
+    }
+
+    .service-card {
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.05);
+      padding: 25px;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      text-align: center;
+    }
+
+    .service-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 8px 20px rgba(0,184,148,0.2);
+    }
+
+    .icon-circle {
+      width: 70px;
+      height: 70px;
+      margin: 0 auto 15px;
+      background: rgba(0,184,148,0.1);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .service-card i {
+      font-size: 38px;
+      color: #00b894;
+    }
+
+    .service-card h3 {
+      font-size: 20px;
+      color: #222;
+      margin-bottom: 8px;
+    }
+
+    .service-card p {
+      color: #555;
+      font-size: 15px;
+      line-height: 1.5;
+    }
+
+    footer {
+      text-align: center;
+      padding: 15px;
+      background: #00b894;
+      color: white;
+      font-size: 14px;
+      margin-top: 40px;
+    }
+
+    /* ======== Pastki navigatsiya (navbar) ======== */
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background: #ffffff;
+      box-shadow: 0 -3px 10px rgba(0,0,0,0.1);
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      padding: 10px 0;
+      z-index: 100;
+    }
+
+    .bottom-nav a {
+      text-decoration: none;
+      color: #777;
+      font-size: 13px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transition: 0.3s;
+    }
+
+    .bottom-nav a.active, .bottom-nav a:hover {
+      color: #00b894;
+    }
+
+    .bottom-nav i {
+      font-size: 20px;
+      margin-bottom: 4px;
+    }
+  </style>
+</head>
+<body>
+
+  <header data-key="header">💚 Healvia — Bizning Xizmatlar</header>
+  <div class="lang">
+    <select id="langSelect">
+      <option value="uz">🇺🇿 Uz</option>
+      <option value="ru">🇷🇺 Ru</option>
+      <option value="en">🇬🇧 En</option>
+    </select>
+  </div>
+
+  <div class="container">
+    <h2 data-key="title">Hayotingizni sog‘lom qilish uchun yaratilgan xizmatlar</h2>
+    <p class="subtitle" data-key="subtitle">Healvia sizga dorilar, psixologiya, tahlil va ovqatlanish sohalarida intellektual yordam beradi.</p>
+
+    <div class="services">
+      <div class="service-card" onclick="goTo('pharmacy.html')">
+        <div class="icon-circle"><i class="fa-solid fa-pills"></i></div>
+        <h3 data-key="pharmacy">Dorixonalar</h3>
+        <p data-key="pharmacy-desc">Dorilarni toping yoki Healvia dorixona tarmog‘iga qo‘shiling.</p>
+      </div>
+
+      <div class="service-card" onclick="goTo('diagnostika.html')">
+        <div class="icon-circle"><i class="fa-solid fa-stethoscope"></i></div>
+        <h3 data-key="diagnosis">Diagnostika</h3>
+        <p data-key="diagnosis-desc">Belgilarni kiriting va AI sizga taxminiy tashxisni beradi.</p>
+      </div>
+
+      <div class="service-card" onclick="goTo('psychology.html')">
+        <div class="icon-circle"><i class="fa-solid fa-brain"></i></div>
+        <h3 data-key="psychology">Psixologiya</h3>
+        <p data-key="psychology-desc">Kayfiyat va ruhiy holat uchun AI tavsiyalari.</p>
+      </div>
+
+      <div class="service-card" onclick="goTo('nutrition.html')">
+        <div class="icon-circle"><i class="fa-solid fa-utensils"></i></div>
+        <h3 data-key="nutrition">Nutritsiologiya</h3>
+        <p data-key="nutrition-desc">Sog‘lom ovqatlanish rejalari va kaloriyalar nazorati.</p>
+      </div>
+
+      <div class="service-card" onclick="goTo('tahlil.html')">
+        <div class="icon-circle"><i class="fa-solid fa-vial"></i></div>
+        <h3 data-key="lab">Tahlillar</h3>
+        <p data-key="lab-desc">Tahlil natijalarini kiriting — AI tahlil qiladi.</p>
+      </div>
+
+      <div class="service-card" onclick="goTo('ai.html')">
+        <div class="icon-circle"><i class="fa-solid fa-comments"></i></div>
+        <h3 data-key="chat">AI Chat</h3>
+        <p data-key="chat-desc">Healvia AI bilan jonli muloqot — savollarga aniq javoblar.</p>
+      </div>
+      
+      <div class="service-card" onclick="goTo('uchrashuvlar.html')">
+        <div class="icon-circle"><i class="fa-solid fa-calendar-check"></i></div>
+        <h3 data-key="appointments">Uchrashuvlar</h3>
+        <p data-key="appointments-desc">Shifokor bilan onlayn uchrashuvni bron qiling.</p>
+      </div>
+
+      <div class="service-card" onclick="goTo('history.html')">
+        <div class="icon-circle"><i class="fa-solid fa-file-medical"></i></div>
+        <h3 data-key="history">Sog‘liq tarixi</h3>
+        <p data-key="history-desc">Sizning shaxsiy tibbiy tarixingizni kuzating.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 🔽 Pastki navigatsiya paneli -->
+  <div class="bottom-nav">
+    <a href="index.html" id="nav-home"><i class="fa-solid fa-house"></i><span data-key="home">Bosh sahifa</span></a>
+    <a href="uchrashuvlar.html" id="nav-calendar"><i class="fa-solid fa-calendar-days"></i><span data-key="calendar">Uchrashuvlar</span></a>
+    <a href="chat.html" id="nav-chat"><i class="fa-solid fa-comment-dots"></i><span data-key="chatnav">Chat</span></a>
+    <a href="tahlil.html" id="nav-chart"><i class="fa-solid fa-chart-simple"></i><span data-key="chart">Tahlil</span></a>
+    <a href="profil.html" id="nav-profile"><i class="fa-solid fa-user"></i><span data-key="profile">Profil</span></a>
+  </div>
+
+  <script>
+    const translations = {
+      uz: {
+        header: "💚 Healvia — Bizning Xizmatlar",
+        title: "Hayotingizni sog‘lom qilish uchun yaratilgan xizmatlar",
+        subtitle: "Healvia sizga dorilar, psixologiya, tahlil va ovqatlanish sohalarida intellektual yordam beradi.",
+        pharmacy: "Dorixonalar", "pharmacy-desc": "Dorilarni toping yoki Healvia dorixona tarmog‘iga qo‘shiling.",
+        diagnosis: "Diagnostika", "diagnosis-desc": "Belgilarni kiriting va AI sizga taxminiy tashxisni beradi.",
+        psychology: "Psixologiya", "psychology-desc": "Kayfiyat va ruhiy holat uchun AI tavsiyalari.",
+        nutrition: "Nutritsiologiya", "nutrition-desc": "Sog‘lom ovqatlanish rejalari va kaloriyalar nazorati.",
+        lab: "Tahlillar", "lab-desc": "Tahlil natijalarini kiriting — AI tahlil qiladi.",
+        chat: "AI Chat", "chat-desc": "Healvia bilan jonli muloqot — savollarga aniq javoblar.",
+        appointments: "Uchrashuvlar", "appointments-desc": "Shifokor bilan onlayn uchrashuvni bron qiling.",
+        history: "Sog‘liq tarixi", "history-desc": "Sizning shaxsiy tibbiy tarixingizni kuzating.",
+        home: "Bosh sahifa", calendar: "Uchrashuvlar", chatnav: "Chat", chart: "Tahlil", profile: "Profil"
+      },
+      ru: {
+        header: "💚 Healvia — Наши услуги",
+        title: "Сервисы для вашего здоровья",
+        subtitle: "Healvia помогает вам в медицине, психологии, анализах и питании.",
+        pharmacy: "Аптеки", "pharmacy-desc": "Найдите лекарства или присоединяйтесь к сети аптек Healvia.",
+        diagnosis: "Диагностика", "diagnosis-desc": "Введите симптомы — AI предложит возможный диагноз.",
+        psychology: "Психология", "psychology-desc": "Советы AI для улучшения психического состояния.",
+        nutrition: "Питание", "nutrition-desc": "Планы здорового питания и контроль калорий.",
+        lab: "Анализы", "lab-desc": "Введите результаты — AI выполнит анализ.",
+        chat: "AI Чат", "chat-desc": "Общайтесь с Healvia — получайте ответы на вопросы.",
+        appointments: "Встречи", "appointments-desc": "Запланируйте онлайн-консультацию с врачом.",
+        history: "История здоровья", "history-desc": "Следите за своей личной медицинской историей.",
+        home: "Главная", calendar: "Встречи", chatnav: "Чат", chart: "Анализ", profile: "Профиль"
+      },
+      en: {
+        header: "💚 Healvia — Our Services",
+        title: "Smart services to improve your health",
+        subtitle: "Healvia helps you in medicine, psychology, analysis and nutrition.",
+        pharmacy: "Pharmacy", "pharmacy-desc": "Find medicines or join the Healvia pharmacy network.",
+        diagnosis: "Diagnosis", "diagnosis-desc": "Enter symptoms and AI will suggest a diagnosis.",
+        psychology: "Psychology", "psychology-desc": "AI insights for your mental wellbeing.",
+        nutrition: "Nutrition", "nutrition-desc": "Healthy eating plans and calorie control.",
+        lab: "Lab Tests", "lab-desc": "Enter your lab results — AI will analyze them.",
+        chat: "AI Chat", "chat-desc": "Talk to Healvia — get personalized answers.",
+        appointments: "Appointments", "appointments-desc": "Book an online consultation with a doctor.",
+        history: "Health History", "history-desc": "Track your personal medical records.",
+        home: "Home", calendar: "Meetings", chatnav: "Chat", chart: "Analysis", profile: "Profile"
+      }
+    };
+
+    const langSelect = document.getElementById("langSelect");
+    const savedLang = localStorage.getItem("language") || "uz";
+    langSelect.value = savedLang;
+    applyLang(savedLang);
+
+    langSelect.addEventListener("change", (e) => {
+      const lang = e.target.value;
+      localStorage.setItem("language", lang);
+      applyLang(lang);
+    });
+
+    function applyLang(lang) {
+      document.querySelectorAll("[data-key]").forEach(el => {
+        const key = el.getAttribute("data-key");
+        el.textContent = translations[lang][key];
+      });
+    }
+
+    function goTo(page) {
+      window.location.href = page;
+    }
+  </script>
+</body>
+</html>

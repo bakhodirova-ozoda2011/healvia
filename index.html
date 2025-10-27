@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Healvia — Inson salomatligining raqamli hamrohi</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <style>
+    body {
+      margin: 0;
+      font-family: "Poppins", sans-serif;
+      background: linear-gradient(135deg, #e3fdfd, #ffffff, #f0f5ff);
+      color: #333;
+      overflow-x: hidden;
+    }
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 50px;
+      background: rgba(255, 255, 255, 0.9);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    .logo-container { display: flex; align-items: center; gap: 10px; }
+    .logo-container img { height: 45px; width: auto; }
+    .logo-container span { font-size: 28px; font-weight: 700; color: #00b894; }
+    nav ul { list-style: none; display: flex; gap: 30px; margin: 0; padding: 0; }
+    nav ul li { cursor: pointer; transition: color 0.3s; }
+    nav ul li:hover { color: #00b894; }
+    .lang-select, .register-btn {
+      background: #00b894;
+      color: white;
+      border: none;
+      padding: 8px 15px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 500;
+      transition: background 0.3s;
+    }
+    .lang-select:hover, .register-btn:hover { background: #009973; }
+    .hero {
+      text-align: center;
+      padding: 100px 20px 60px;
+      background: linear-gradient(135deg, #d9fdf5, #e3fdfd, #f0f5ff);
+      animation: fadeIn 1.5s ease-in-out;
+    }
+    .hero h1 { font-size: 42px; color: #00b894; margin-bottom: 10px; }
+    .hero p { font-size: 20px; color: #555; margin-bottom: 30px; }
+    .hero img { width: 60%; max-width: 600px; margin-top: 30px; border-radius: 15px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); }
+    .hero .btn { background: #00b894; color: white; padding: 12px 25px; border: none; border-radius: 6px; font-size: 16px; cursor: pointer; transition: 0.3s; }
+    .hero .btn:hover { background: #009973; }
+    .services {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 25px;
+      padding: 70px 50px;
+      text-align: center;
+      background: linear-gradient(135deg, #f8fbff, #ffffff);
+    }
+    .service-card {
+      background: white;
+      border-radius: 12px;
+      padding: 30px 20px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      transition: transform 0.3s, box-shadow 0.3s;
+      animation: fadeUp 1s ease-in-out;
+    }
+    .service-card:hover { transform: translateY(-5px); box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1); }
+    .service-card i { font-size: 36px; color: #00b894; margin-bottom: 15px; }
+    .service-card h3 { font-size: 20px; margin-bottom: 10px; color: #333; }
+    .service-card p { font-size: 15px; color: #555; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
+    footer { background: #f4f4f4; padding: 40px 20px; text-align: center; color: #777; font-size: 14px; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo-container">
+      <img src="healvia-logo.png" alt="Healvia logo" />
+      <span>Healvia</span>
+    </div>
+
+    <nav>
+        <ul id="menu">
+          <li data-key="home" onclick="navigateTo('index.html')">Asosiy</li>
+          <li data-key="services" onclick="navigateTo('xizmatlar.html')">Xizmatlar</li>
+          <li data-key="app" onclick="navigateTo('app.html')">Ilova</li>
+          <li data-key="contact" onclick="navigateTo('contact.html')">Aloqa</li>
+        </ul>
+      </nav>
+      
+
+    <div>
+      <select id="language" class="lang-select">
+        <option value="uz">🇺🇿 Uz</option>
+        <option value="ru">🇷🇺 Ru</option>
+        <option value="en">🇬🇧 En</option>
+      </select>
+      <button class="register-btn" id="register-btn" data-key="register">Ro‘yxatdan o‘tish</button>
+    </div>
+  </header>
+
+  <section class="hero">
+    <h1 data-key="hero-title">Healvia — Inson salomatligining raqamli hamrohi</h1>
+    <p data-key="hero-text">Tanangizni davolaydi, ruhingizni tinglaydi 💚</p>
+    <img src="header.png" alt="Healvia preview" />
+  </section>
+
+  <section class="services">
+    <div class="service-card"><i class="fa-solid fa-user-doctor"></i><h3 data-key="online">Onlayn qabul</h3><p data-key="online-desc">Shifokor bilan video maslahatlar.</p></div>
+    <div class="service-card"><i class="fa-solid fa-heart-pulse"></i><h3 data-key="tracking">Sog‘liq monitoringi</h3><p data-key="tracking-desc">Smart bilaguzuklar orqali tahlil.</p></div>
+    <div class="service-card"><i class="fa-solid fa-brain"></i><h3 data-key="psychology">Ruhiy yordam</h3><p data-key="psychology-desc">AI asosida ruhiy holat tahlili.</p></div>
+    <div class="service-card"><i class="fa-solid fa-file-medical"></i><h3 data-key="ecard">Elektron karta</h3><p data-key="ecard-desc">Barcha tibbiy ma’lumotlar bir joyda.</p></div>
+    <div class="service-card"><i class="fa-solid fa-pills"></i><h3 data-key="reminder">Dori eslatmalari</h3><p data-key="reminder-desc">Har bir doza uchun eslatma tizimi.</p></div>
+    <div class="service-card"><i class="fa-solid fa-vial"></i><h3 data-key="results">Tahlil natijalari</h3><p data-key="results-desc">Natijalarni AI yordamida tahlil qilish.</p></div>
+    <div class="service-card"><i class="fa-solid fa-shield-heart"></i><h3 data-key="prevention">Profilaktika</h3><p data-key="prevention-desc">Sog‘lom turmush uchun AI tavsiyalar.</p></div>
+    <div class="service-card"><i class="fa-solid fa-robot"></i><h3 data-key="ai-doctor">AI Shifokor</h3><p data-key="ai-doctor-desc">Sun’iy intellekt yordamida tibbiy yordam.</p></div>
+    <div class="service-card"><i class="fa-solid fa-stethoscope"></i><h3 data-key="diagnosis">AI diagnostika</h3><p data-key="diagnosis-desc">Sun’iy intellekt yordamida tahlil natijalari asosida tashxis.</p></div>
+    <div class="service-card"><i class="fa-solid fa-dumbbell"></i><h3 data-key="fitness">Sog‘lom turmush</h3><p data-key="fitness-desc">Shaxsiy mashg‘ulot va ovqatlanish rejalari.</p></div>
+    <div class="service-card"><i class="fa-solid fa-headset"></i><h3 data-key="support">24/7 Yordam</h3><p data-key="support-desc">Healvia jamoasi doimo yordamga tayyor.</p></div>
+    <div class="service-card"><i class="fa-solid fa-laptop-medical"></i><h3 data-key="telemed">Telemeditsina</h3><p data-key="telemed-desc">Masofadan turib tibbiy xizmatlardan foydalaning.</p></div>
+  </section>
+
+  <footer>© 2025 Healvia. Barcha huquqlar himoyalangan.</footer>
+
+  <script>
+    const translations = {
+      uz: {
+        home: "Asosiy", services: "Xizmatlar", app: "Ilova", contact: "Aloqa", register: "Ro‘yxatdan o‘tish",
+        "hero-title": "Healvia — Inson salomatligining raqamli hamrohi",
+        "hero-text": "Tanangizni davolaydi, ruhingizni tinglaydi 💚",
+        online: "Onlayn qabul", "online-desc": "Shifokor bilan video maslahatlar.",
+        tracking: "Sog‘liq monitoringi", "tracking-desc": "Smart bilaguzuklar orqali tahlil.",
+        psychology: "Ruhiy yordam", "psychology-desc": "AI asosida ruhiy holat tahlili.",
+        ecard: "Elektron karta", "ecard-desc": "Barcha tibbiy ma’lumotlar bir joyda.",
+        reminder: "Dori eslatmalari", "reminder-desc": "Har bir doza uchun eslatma tizimi.",
+        results: "Tahlil natijalari", "results-desc": "Natijalarni AI yordamida tahlil qilish.",
+        prevention: "Profilaktika", "prevention-desc": "Sog‘lom turmush uchun AI tavsiyalar.",
+        "ai-doctor": "AI Shifokor", "ai-doctor-desc": "Sun’iy intellekt yordamida tibbiy yordam.",
+        diagnosis: "AI diagnostika", "diagnosis-desc": "Sun’iy intellekt yordamida tahlil natijalari asosida tashxis.",
+        fitness: "Sog‘lom turmush", "fitness-desc": "Shaxsiy mashg‘ulot va ovqatlanish rejalari.",
+        support: "24/7 Yordam", "support-desc": "Healvia jamoasi doimo yordamga tayyor.",
+        telemed: "Telemeditsina", "telemed-desc": "Masofadan turib tibbiy xizmatlardan foydalaning."
+      },
+      ru: {
+        home: "Главная", services: "Услуги", app: "Приложение", contact: "Контакты", register: "Регистрация",
+        "hero-title": "Healvia — Цифровой помощник здоровья",
+        "hero-text": "Лечит тело, слушает душу 💚",
+        online: "Онлайн приём", "online-desc": "Видеоконсультации с врачами.",
+        tracking: "Мониторинг здоровья", "tracking-desc": "Анализ через смарт-браслеты.",
+        psychology: "Психологическая помощь", "psychology-desc": "ИИ анализ психического состояния.",
+        ecard: "Электронная карта", "ecard-desc": "Вся история в одном месте.",
+        reminder: "Напоминания о лекарствах", "reminder-desc": "Система напоминаний для каждого приёма.",
+        results: "Результаты анализов", "results-desc": "Анализ данных с помощью ИИ.",
+        prevention: "Профилактика", "prevention-desc": "Рекомендации для здорового образа жизни.",
+        "ai-doctor": "ИИ Врач", "ai-doctor-desc": "Медицинская помощь с ИИ.",
+        diagnosis: "ИИ Диагностика", "diagnosis-desc": "Диагноз на основе данных анализов.",
+        fitness: "Здоровый образ жизни", "fitness-desc": "Индивидуальные планы тренировок и питания.",
+        support: "Поддержка 24/7", "support-desc": "Команда Healvia всегда готова помочь.",
+        telemed: "Телемедицина", "telemed-desc": "Получайте медицинские услуги дистанционно."
+      },
+      en: {
+        home: "Home", services: "Services", app: "App", contact: "Contact", register: "Register",
+        "hero-title": "Healvia — Your Digital Health Companion",
+        "hero-text": "Healing your body, listening to your mind 💚",
+        online: "Online Consultation", "online-desc": "Video calls with doctors.",
+        tracking: "Health Tracking", "tracking-desc": "Smart device-based health analysis.",
+        psychology: "Mental Health", "psychology-desc": "AI-powered mental wellness insights.",
+        ecard: "E-Health Record", "ecard-desc": "Your full health data in one place.",
+        reminder: "Medication Reminders", "reminder-desc": "Smart reminders for every dose.",
+        results: "Test Results", "results-desc": "AI analysis of medical results.",
+        prevention: "Prevention", "prevention-desc": "AI recommendations for healthy life.",
+        "ai-doctor": "AI Doctor", "ai-doctor-desc": "AI-assisted medical help.",
+        diagnosis: "AI Diagnosis", "diagnosis-desc": "AI-based diagnosis from lab data.",
+        fitness: "Healthy Lifestyle", "fitness-desc": "Personalized fitness and diet plans.",
+        support: "24/7 Support", "support-desc": "Healvia team is always ready to help.",
+        telemed: "Telemedicine", "telemed-desc": "Access healthcare remotely."
+      }
+    };
+    const langSelect = document.getElementById("language");
+    const savedLang = localStorage.getItem("language") || "uz";
+    langSelect.value = savedLang;
+    applyTranslations(savedLang);
+
+    langSelect.addEventListener("change", (e) => {
+      const lang = e.target.value;
+      localStorage.setItem("language", lang);
+      applyTranslations(lang);
+    });
+
+    function applyTranslations(lang) {
+      document.querySelectorAll("[data-key]").forEach((el) => {
+        const key = el.getAttribute("data-key");
+        if (translations[lang][key]) el.textContent = translations[lang][key];
+      });
+    }
+
+    document.getElementById("register-btn").addEventListener("click", () => {
+      window.location.href = "register.html";
+    });
+
+    // ✅ Foydalanuvchi salomlashuvi
+    const currentUser = JSON.parse(localStorage.getItem("healvia_user"));
+    if (currentUser && currentUser.name) {
+      const lang = localStorage.getItem("language") || "uz ru en";
+      const greetings = {
+        uz: `Salom, ${currentUser.name}! Siz muvaffaqiyatli ro‘yxatdan o‘tdingiz 💚`,
+        ru: `Здравствуйте, ${currentUser.name}! Вы успешно зарегистрировались 💚`,
+        en: `Hello, ${currentUser.name}! You have successfully registered 💚`
+      }
+    };
+      setTimeout(() => alert(greetings[lang]), 700);
+      
+      
+    // 🔹 Harakat funksiyasi (endi ishlaydi)
+    function navigateTo(page) {
+      window.location.href = page;
+    }
+      function setLang(lang) {
+      localStorage.setItem("healvia_lang", lang); // foydalanuvchi tanlagan tilni saqlaymiz
+      window.location.href = "ai.html"; // AI sahifasiga yo‘naltiramiz
+
+  function navigateTo(page) {
+    window.location.href = page;
+  }
+
+    }
+  </script>
+</html>

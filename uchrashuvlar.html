@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Healvia — Uchrashuvlar</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: "Poppins", sans-serif;
+      background: linear-gradient(135deg, #e3fdfd, #fdfbfb);
+      color: #333;
+    }
+    header {
+      background: #00a8ff;
+      color: white;
+      padding: 25px;
+      text-align: center;
+      border-bottom-left-radius: 25px;
+      border-bottom-right-radius: 25px;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 28px;
+    }
+    header p {
+      font-size: 15px;
+      margin-top: 5px;
+    }
+    .container {
+      max-width: 850px;
+      background: #fff;
+      margin: 40px auto;
+      padding: 25px;
+      border-radius: 20px;
+      box-shadow: 0 5px 25px rgba(0, 0, 0, 0.08);
+    }
+    h2 {
+      text-align: center;
+      color: #0984e3;
+      margin-bottom: 25px;
+    }
+    form {
+      display: grid;
+      gap: 20px;
+    }
+    label {
+      font-weight: 600;
+    }
+    input, select, textarea {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1.5px solid #ccc;
+      border-radius: 10px;
+      font-size: 15px;
+      transition: 0.3s;
+    }
+    input:focus, select:focus, textarea:focus {
+      outline: none;
+      border-color: #00a8ff;
+      box-shadow: 0 0 5px rgba(0, 168, 255, 0.2);
+    }
+    textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+    button {
+      background: #00a8ff;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      font-size: 16px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    button:hover {
+      background: #007acc;
+    }
+    .confirmation {
+      display: none;
+      margin-top: 25px;
+      padding: 15px;
+      border-radius: 10px;
+      background: #d4edda;
+      color: #155724;
+      border-left: 5px solid #28a745;
+      animation: fadeIn 0.6s ease;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    footer {
+      text-align: center;
+      margin: 30px 0;
+      color: #888;
+      font-size: 13px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>📅 Healvia Uchrashuvlar</h1>
+    <p>Shifokor yoki psixolog bilan onlayn uchrashuvni bron qiling.</p>
+  </header>
+
+  <div class="container">
+    <h2>Uchrashuvni bron qilish</h2>
+
+    <form id="appointmentForm">
+      <div>
+        <label for="name">👤 Ism va familiya:</label>
+        <input type="text" id="name" placeholder="Ismingizni kiriting" required />
+      </div>
+
+      <div>
+        <label for="phone">📞 Telefon raqam:</label>
+        <input type="tel" id="phone" placeholder="+998 90 123 45 67" required />
+      </div>
+
+      <div>
+        <label for="specialist">🏥 Mutaxassis turi:</label>
+        <select id="specialist" required>
+          <option value="">Tanlang...</option>
+          <option value="terapevt">Terapevt</option>
+          <option value="psixolog">Psixolog</option>
+          <option value="nutritsiolog">Nutritsiolog</option>
+          <option value="pediatr">Pediatr</option>
+        </select>
+      </div>
+
+      <div>
+        <label for="date">📅 Sana:</label>
+        <input type="date" id="date" required />
+      </div>
+
+      <div>
+        <label for="time">⏰ Vaqt:</label>
+        <input type="time" id="time" required />
+      </div>
+
+      <div>
+        <label for="message">💬 Muammo yoki sabab:</label>
+        <textarea id="message" placeholder="Qisqacha yozing..."></textarea>
+      </div>
+
+      <button type="submit">✅ Uchrashuv so‘rovini yuborish</button>
+    </form>
+
+    <div class="confirmation" id="confirmation">
+      ✅ So‘rovingiz yuborildi! Tez orada mutaxassis siz bilan bog‘lanadi.  
+      <br> Healvia jamoasi sizning sog‘lig‘ingiz uchun ishlaydi 💙
+    </div>
+  </div>
+
+  <footer>© 2025 Healvia — Sog‘lom hayot sari birgalikda</footer>
+
+  <script>
+    const form = document.getElementById("appointmentForm");
+    const confirmation = document.getElementById("confirmation");
+
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+
+      // Ma’lumotlarni olish
+      const name = document.getElementById("name").value.trim();
+      const specialist = document.getElementById("specialist").value;
+      const date = document.getElementById("date").value;
+      const time = document.getElementById("time").value;
+
+      if (!name || !specialist || !date || !time) {
+        alert("Iltimos, barcha majburiy maydonlarni to‘ldiring!");
+        return;
+      }
+
+      // Formani tozalash va tasdiqni ko‘rsatish
+      form.reset();
+      confirmation.style.display = "block";
+
+      // 3 soniyadan keyin yashirish
+      setTimeout(() => {
+        confirmation.style.display = "none";
+      }, 5000);
+    });
+  </script>
+</body>
+</html>

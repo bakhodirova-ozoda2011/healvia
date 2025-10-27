@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Healvia — Profil yaratish</title>
+  <style>
+    body {
+      font-family: "Poppins", sans-serif;
+      background: linear-gradient(135deg, #e3fdfd, #ffffff, #f0f5ff);
+      color: #333;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+    .profile-box {
+      background: white;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      width: 400px;
+    }
+    h1 {
+      text-align: center;
+      color: #00b894;
+      margin-bottom: 25px;
+    }
+    label {
+      font-weight: 600;
+      margin-bottom: 5px;
+      display: block;
+    }
+    input, select, textarea {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 14px;
+    }
+    button {
+      background: #00b894;
+      color: white;
+      border: none;
+      padding: 12px;
+      width: 100%;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    button:hover {
+      background: #009973;
+    }
+    .footer {
+      text-align: center;
+      margin-top: 15px;
+      font-size: 13px;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="profile-box">
+    <h1>👤 Profil yaratish</h1>
+    <label>Ism:</label>
+    <input type="text" id="name" placeholder="Masalan: Ozoda" />
+
+    <label>Yosh:</label>
+    <input type="number" id="age" placeholder="Masalan: 25" />
+
+    <label>Jins:</label>
+    <select id="gender">
+      <option value="ayol">Ayol</option>
+      <option value="erkak">Erkak</option>
+    </select>
+
+    <label>Bo‘yi (sm):</label>
+    <input type="number" id="height" placeholder="Masalan: 165" />
+
+    <label>Vazni (kg):</label>
+    <input type="number" id="weight" placeholder="Masalan: 60" />
+
+    <label>Surunkali kasalliklar:</label>
+    <textarea id="conditions" rows="2" placeholder="Masalan: Diabet, gipertoniya..."></textarea>
+
+    <label>Allergiyalar yoki dorilar:</label>
+    <textarea id="meds" rows="2" placeholder="Masalan: Penitsillin, Paratsetamol..."></textarea>
+
+    <label>AI yordam maqsadi:</label>
+    <select id="goal">
+      <option value="vazn">Vazn nazorati</option>
+      <option value="uyqu">Uyquni yaxshilash</option>
+      <option value="stress">Stressni kamaytirish</option>
+      <option value="umumiy">Umumiy sog‘lom turmush</option>
+    </select>
+
+    <button onclick="saveProfile()">💾 Saqlash</button>
+
+    <div class="footer">© 2025 Healvia. Shaxsiy ma’lumotlaringiz maxfiy saqlanadi.</div>
+  </div>
+
+  <script>
+    function saveProfile() {
+      const profile = {
+        name: document.getElementById("name").value,
+        age: document.getElementById("age").value,
+        gender: document.getElementById("gender").value,
+        height: document.getElementById("height").value,
+        weight: document.getElementById("weight").value,
+        conditions: document.getElementById("conditions").value,
+        meds: document.getElementById("meds").value,
+        goal: document.getElementById("goal").value
+      };
+
+      if (!profile.name || !profile.age || !profile.gender) {
+        alert("Iltimos, barcha asosiy maydonlarni to‘ldiring!");
+        return;
+      }
+
+      localStorage.setItem("healvia_profile", JSON.stringify(profile));
+      alert("✅ Profil muvaffaqiyatli saqlandi!");
+      window.location.href = "history.html";
+    }
+  </script>
+
+</body>
+</html>

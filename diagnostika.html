@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Healvia — Diagnostika markazlari</title>
+  <style>
+    :root {
+      --accent:#00b894;
+      --bg:linear-gradient(180deg,#00b894,#00cec9);
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{
+      font-family:"Poppins",sans-serif;
+      background:var(--bg);
+      color:#fff;
+      min-height:100vh;
+      display:flex;
+      flex-direction:column;
+    }
+    header{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      padding:15px;
+    }
+    .logo{
+      display:flex;
+      align-items:center;
+      gap:10px;
+    }
+    .logo img{
+      width:50px;
+      height:50px;
+      border-radius:10px;
+    }
+    .logo span{
+      font-size:20px;
+      font-weight:700;
+    }
+    #langSelect{
+      background:rgba(255,255,255,0.15);
+      color:#fff;
+      border:none;
+      padding:6px 10px;
+      border-radius:8px;
+    }
+    h1{text-align:center;margin:10px 0 0}
+    #userGreeting{text-align:center;margin:5px 0 15px;font-weight:600}
+    .diag-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
+      gap:16px;
+      padding:15px;
+    }
+    .card{
+      background:rgba(255,255,255,0.1);
+      padding:15px;
+      border-radius:12px;
+      transition:0.3s;
+    }
+    .card:hover{
+      transform:translateY(-4px);
+      box-shadow:0 6px 20px rgba(0,0,0,0.2);
+    }
+    .card h3{margin-bottom:6px;font-size:17px}
+    .card p{margin:5px 0;font-size:14px;color:#f0f0f0}
+    .card-actions{margin-top:10px;display:flex;gap:8px}
+    .btn{
+      border:none;
+      border-radius:10px;
+      padding:8px 12px;
+      font-weight:600;
+      cursor:pointer;
+    }
+    .btn.primary{background:#fff;color:var(--accent)}
+    .btn.secondary{background:rgba(255,255,255,0.15);color:#fff}
+    footer{
+      position:fixed;
+      bottom:0;
+      left:0;
+      right:0;
+      background:rgba(0,0,0,0.1);
+      backdrop-filter:blur(6px);
+      padding:10px;
+      display:flex;
+      justify-content:center;
+      gap:10px;
+      z-index:10;
+    }
+    .notice {
+      background:#fff5cc;
+      color:#222;
+      margin:30px 15px 100px 15px;
+      padding:12px 16px;
+      border-radius:12px;
+      font-weight:600;
+      text-align:center;
+      box-shadow:0 2px 10px rgba(0,0,0,0.1);
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">
+      <img src="healvia-logo.png" alt="logo">
+      <span>Healvia</span>
+    </div>
+    <select id="langSelect">
+      <option value="uz">UZ</option>
+      <option value="ru">RU</option>
+      <option value="en">EN</option>
+    </select>
+  </header>
+
+  <h1 id="title">Diagnostika markazlari</h1>
+  <div id="userGreeting">Salom, Foydalanuvchi 👋</div>
+
+  <div class="diag-grid" id="diagGrid"></div>
+
+  <!-- 🔸 Ogohlantiruvchi matn -->
+  <div id="healviaNotice" class="notice"></div>
+
+  <!-- 🔸 Navigatsiya -->
+  <footer>
+    <button class="btn primary" onclick="location.href='index.html'">🏠 Bosh sahifa</button>
+    <button class="btn secondary" onclick="location.href='xizmatlar.html'">🩺 Xizmatlar</button>
+    <button class="btn secondary" onclick="location.href='profil.html'">👤 Profil</button>
+  </footer>
+
+  <script>
+    const centers = [
+      {name:"Inha Med Diagnostika Markazi",address:"Amir Temur ko‘chasi 9A, Toshkent",phone:"+998 71 200 55 44",schedule:"Du–Sh 08:00–19:00"},
+      {name:"Innovative Med Clinic",address:"Shayxontohur tumani, Qoratosh 18",phone:"+998 90 345 77 22",schedule:"Du–Sh 09:00–18:00"},
+      {name:"Renessans Diagnostika Markazi",address:"Yakkasaroy tumani, Babur ko‘chasi 45",phone:"+998 71 255 90 10",schedule:"Du–Sh 08:30–17:30"},
+      {name:"Medical Park Uzbekistan",address:"Mirzo Ulug‘bek tumani, Mustaqillik 59A",phone:"+998 71 207 80 80",schedule:"Du–Ya 08:00–20:00"},
+      {name:"Perfect Diagnostics",address:"Chilonzor 10-daha, Toshkent",phone:"+998 95 777 00 99",schedule:"Du–Sh 09:00–18:00"}
+    ];
+
+    const UI = {
+      uz:{
+        title:"Diagnostika markazlari",
+        hello:"Salom",
+        notice:"Markaz yoki shifokormisiz? Bu saytda siz haqingizda ma'lumot bo'lishi mumkin. Tezkor aloqaga chiqing: +998 (95) 975-17-47 yoki healvia_doctors@mail.ru ga murojaat qiling."
+      },
+      ru:{
+        title:"Диагностические центры",
+        hello:"Здравствуйте",
+        notice:"Вы представитель центра или врач? На этом сайте может быть информация о вас. Свяжитесь с нами: +998 (95) 975-17-47 или healvia_doctors@mail.ru."
+      },
+      en:{
+        title:"Diagnostics Centers",
+        hello:"Hello",
+        notice:"Are you a doctor or medical center representative? This site may contain your information. Contact us: +998 (95) 975-17-47 or healvia_doctors@mail.ru."
+      }
+    };
+
+    const langSelect = document.getElementById('langSelect');
+    const title = document.getElementById('title');
+    const greet = document.getElementById('userGreeting');
+    const notice = document.getElementById('healviaNotice');
+    const grid = document.getElementById('diagGrid');
+
+    const savedLang = localStorage.getItem('lang') || 'uz';
+    langSelect.value = savedLang;
+
+    function render(lang){
+      const ui = UI[lang];
+      title.textContent = ui.title;
+      greet.textContent = ui.hello + ", Foydalanuvchi 👋";
+      notice.textContent = ui.notice;
+      grid.innerHTML = centers.map(c => `
+        <div class="card">
+          <h3>${c.name}</h3>
+          <p>${c.address}</p>
+          <p>📞 ${c.phone}</p>
+          <p>🕒 ${c.schedule}</p>
+          <div class="card-actions">
+            <button class="btn primary" onclick="window.location.href='tel:${c.phone.replace(/\s+/g,'')}'">📞 Qo‘ng‘iroq</button>
+            <button class="btn secondary" onclick="window.open('https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(c.name+' '+c.address)}')">📍 Xarita</button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    langSelect.onchange = e => {
+      localStorage.setItem('lang', e.target.value);
+      render(e.target.value);
+    };
+
+    render(savedLang);
+
+    window.addEventListener("storage", e => {
+      if (e.key === "lang") render(e.newValue);
+    });
+  </script>
+</body>
+</html>

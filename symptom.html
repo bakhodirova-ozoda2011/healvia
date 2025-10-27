@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <title>Healvia AI Symptom Checker</title>
+  <style>
+    body {
+      font-family: "Segoe UI", sans-serif;
+      background: #f4f6f9;
+      color: #333;
+      padding: 20px;
+    }
+    h1 {
+      color: #0066cc;
+    }
+    select, button {
+      padding: 10px;
+      margin: 10px 0;
+      font-size: 16px;
+    }
+    #response {
+      margin-top: 20px;
+      background: #e0f0ff;
+      padding: 15px;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+<body>
+  <h1>🧠 Healvia AI Symptom Checker</h1>
+
+  <label for="language">🌐 Tilni tanlang / Выберите язык / Choose language:</label><br>
+  <select id="language" onchange="loadSymptoms()">
+    <option value="uz">O'zbekcha</option>
+    <option value="ru">Русский</option>
+    <option value="en">English</option>
+  </select>
+
+  <br><label for="symptom">🤒 Simptomni tanlang:</label><br>
+  <select id="symptom"></select>
+
+  <br><button onclick="checkSymptom()">Maslahat olish</button>
+
+  <div id="response"></div>
+
+  <script>
+    const data = {
+      uz: {
+        "Bosh og‘rig‘i": {
+          advice: "Suv iching, dam oling, kuchli yorug‘likdan saqlaning.",
+          medicine: "Paratsetamol 500 mg yoki Ibuprofen 200 mg"
+        },
+        "Qorin og‘rig‘i": {
+          advice: "Yog‘li ovqatlardan saqlaning, iliq suv iching.",
+          medicine: "No-spa (Drotaverin), Mezim"
+        },
+        "Isitma": {
+          advice: "Ko‘p suyuqlik iching, tana haroratini o‘lchang.",
+          medicine: "Paratsetamol, Ibuprofen"
+        },
+        "Yo‘tal": {
+          advice: "Iliq ichimliklar iching, xona namligini saqlang.",
+          medicine: "Ambroksol, Bromhexin, ACC"
+        },
+        "Tomoq og‘rig‘i": {
+          advice: "Tuzli suv bilan g‘arg‘ara qiling, iliq choy iching.",
+          medicine: "Strepsils, Tantum Verde, Faringosept"
+        },
+        // ... Qolgan 45 simptomni shu formatda davom ettiring
+
+        
+      },
+      ru: {
+        "Головная боль": {
+          advice: "Пейте воду, отдохните, избегайте яркого света.",
+          medicine: "Парацетамол 500 мг или Ибупрофен 200 мг"
+        },
+        "Боль в животе": {
+          advice: "Избегайте жирной пищи, пейте теплую воду.",
+          medicine: "Но-шпа, Мезим"
+        },
+        "Лихорадка": {
+          advice: "Пейте больше жидкости, измеряйте температуру.",
+          medicine: "Парацетамол, Ибупрофен"
+        },
+        "Кашель": {
+          advice: "Пейте теплые напитки, увлажняйте воздух.",
+          medicine: "Амброксол, Бромгексин, АЦЦ"
+        },
+        "Боль в горле": {
+          advice: "Полощите горло соленой водой, пейте теплый чай.",
+          medicine: "Стрепсилс, Тантум Верде, Фарингосепт"
+        },
+        // ... Qolgan 45 simptomni shu formatda davom ettiring
+      },
+      en: {
+        "Headache": {
+          advice: "Drink water, rest, avoid bright lights.",
+          medicine: "Paracetamol 500 mg or Ibuprofen 200 mg"
+        },
+        "Abdominal pain": {
+          advice: "Avoid fatty foods, drink warm water.",
+          medicine: "No-spa (Drotaverine), Mezim"
+        },
+        "Fever": {
+          advice: "Stay hydrated, monitor your temperature.",
+          medicine: "Paracetamol, Ibuprofen"
+        },
+        "Cough": {
+          advice: "Drink warm fluids, keep air humid.",
+          medicine: "Ambroxol, Bromhexine, ACC"
+        },
+        "Sore throat": {
+          advice: "Gargle with salt water, drink warm tea.",
+          medicine: "Strepsils, Tantum Verde, Faringosept"
+        },
+        // ... Qolgan 45 simptomni shu formatda davom ettiring
+      }
+    };
+
+    function loadSymptoms() {
+      const lang = document.getElementById("language").value;
+      const symptomSelect = document.getElementById("symptom");
+      symptomSelect.innerHTML = Object.keys(data[lang])
+        .map(s => `<option value="${s}">${s}</option>`)
+        .join("");
+    }
+
+    function checkSymptom() {
+      const lang = document.getElementById("language").value;
+      const symptom = document.getElementById("symptom").value;
+      const info = data[lang][symptom];
+
+      const message = `
+        <h3>${symptom}</h3>
+        <p><strong>Maslahat / Совет / Advice:</strong> ${info.advice}</p>
+        <p><strong>Dori / Лекарство / Medicine:</strong> ${info.medicine}</p>
+        <p><em>⚠️ Dorilarni faqat shifokor nazorati ostida qabul qiling.</em></p>
+      `;
+
+      document.getElementById("response").innerHTML = message;
+    }
+
+    loadSymptoms(); // Initial load
+  </script>
+</body>
+</html>

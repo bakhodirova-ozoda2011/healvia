@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Healvia Chat — Onlayn maslahat</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: "Poppins", sans-serif;
+      background: linear-gradient(135deg, #dff9fb, #ffffff, #f0f9ff);
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      color: #333;
+    }
+
+    header {
+      background: #00b894;
+      color: white;
+      text-align: center;
+      padding: 18px;
+      font-size: 20px;
+      font-weight: 600;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    }
+
+    .chat-container {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      max-width: 600px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 15px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .messages {
+      flex: 1;
+      padding: 20px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .msg {
+      max-width: 80%;
+      padding: 12px 16px;
+      border-radius: 15px;
+      line-height: 1.4;
+      animation: fadeIn 0.4s ease;
+    }
+
+    .msg.user {
+      background: #00b894;
+      color: white;
+      align-self: flex-end;
+      border-bottom-right-radius: 5px;
+    }
+
+    .msg.ai {
+      background: #f1f2f6;
+      color: #333;
+      align-self: flex-start;
+      border-bottom-left-radius: 5px;
+    }
+
+    .input-area {
+      display: flex;
+      border-top: 1px solid #ddd;
+    }
+
+    input {
+      flex: 1;
+      border: none;
+      padding: 15px;
+      font-size: 16px;
+      outline: none;
+    }
+
+    button {
+      background: #00b894;
+      color: white;
+      border: none;
+      padding: 0 20px;
+      font-size: 18px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background: #009973;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    footer {
+      text-align: center;
+      padding: 10px;
+      color: #777;
+      font-size: 13px;
+    }
+  </style>
+</head>
+<body>
+  <header>💬 Healvia Chat — Onlayn maslahat</header>
+
+  <div class="chat-container">
+    <div class="messages" id="messages">
+      <div class="msg ai">Salom! Men Healvia yordamchisiman 🤖<br>Sizga qanday yordam bera olaman?</div>
+    </div>
+
+    <div class="input-area">
+      <input type="text" id="userInput" placeholder="Savolingizni yozing..." />
+      <button id="sendBtn">➤</button>
+    </div>
+  </div>
+
+  <footer>© 2025 Healvia — Sog‘lom hayot uchun AI yordamchi 💚</footer>
+
+  <script>
+    const messages = document.getElementById("messages");
+    const input = document.getElementById("userInput");
+    const sendBtn = document.getElementById("sendBtn");
+
+    // Simulyatsiya uchun javoblar bazasi
+    const aiAnswers = [
+      "Bu juda yaxshi savol! 😊",
+      "Tavsiyam: ko‘proq suv iching va dam oling.",
+      "Agar og‘riq davom etsa, shifokorga murojaat qiling.",
+      "Sog‘lom turmush — eng yaxshi davo 💚",
+      "Buning uchun men sizga terapevt yoki psixologni tavsiya qilaman.",
+      "Healvia ilovasi orqali onlayn uchrashuv ham belgilashingiz mumkin."
+    ];
+
+    function addMessage(text, sender) {
+      const div = document.createElement("div");
+      div.classList.add("msg", sender);
+      div.innerHTML = text;
+      messages.appendChild(div);
+      messages.scrollTop = messages.scrollHeight;
+    }
+
+    function aiRespond() {
+      const random = Math.floor(Math.random() * aiAnswers.length);
+      const answer = aiAnswers[random];
+      setTimeout(() => addMessage(answer, "ai"), 800);
+    }
+
+    sendBtn.addEventListener("click", sendMessage);
+    input.addEventListener("keypress", (e) => {
+      if (e.key === "Enter") sendMessage();
+    });
+
+    function sendMessage() {
+      const text = input.value.trim();
+      if (!text) return;
+      addMessage(text, "user");
+      input.value = "";
+      aiRespond();
+    }
+  </script>
+</body>
+</html>

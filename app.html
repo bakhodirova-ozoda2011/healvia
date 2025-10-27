@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Healvia — Ilova ishga tushmoqda</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      font-family: "Poppins", sans-serif;
+      background: linear-gradient(135deg, #00b894, #55efc4);
+      color: white;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .logo {
+      font-size: 60px;
+      animation: bounce 2s infinite ease-in-out;
+      color: #fff;
+      margin-bottom: 20px;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    h1 {
+      font-size: 30px;
+      margin-bottom: 10px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
+
+    p {
+      font-size: 16px;
+      max-width: 550px;
+      line-height: 1.6;
+      margin: 0 auto 25px;
+      opacity: 0.95;
+    }
+
+    .loading {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 20px;
+    }
+
+    .dot {
+      width: 12px;
+      height: 12px;
+      background: white;
+      border-radius: 50%;
+      animation: blink 1.5s infinite;
+    }
+
+    .dot:nth-child(2) {
+      animation-delay: 0.3s;
+    }
+
+    .dot:nth-child(3) {
+      animation-delay: 0.6s;
+    }
+
+    @keyframes blink {
+      0%, 80%, 100% { opacity: 0.3; }
+      40% { opacity: 1; }
+    }
+
+    footer {
+      position: absolute;
+      bottom: 15px;
+      font-size: 13px;
+      opacity: 0.8;
+    }
+
+    .lang {
+      position: absolute;
+      top: 15px;
+      right: 20px;
+    }
+
+    .lang select {
+      background: rgba(255,255,255,0.9);
+      border: none;
+      padding: 6px 10px;
+      border-radius: 6px;
+      font-weight: 500;
+      color: #00b894;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="lang">
+    <select id="langSelect">
+      <option value="uz">🇺🇿 Uz</option>
+      <option value="ru">🇷🇺 Ru</option>
+      <option value="en">🇬🇧 En</option>
+    </select>
+  </div>
+
+  <div class="logo"><i class="fa-solid fa-heart-pulse"></i></div>
+  <h1 data-key="title">Healvia AI ishga tushmoqda...</h1>
+  <p data-key="subtitle">
+    Sizning sog‘lig‘ingiz uchun yaratilgan eng ilg‘or sun’iy intellekt platformasi. 
+    Healvia — bu dorilar, tahlil, diagnostika va psixologik maslahatlarni birlashtirgan tibbiy ekotizim.
+  </p>
+
+  <div class="loading">
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+  </div>
+
+  <footer data-key="footer">
+    💚 Healvia 2025 — Sun’iy intellekt bilan tibbiyot kelajagini yaratamiz.
+  </footer>
+
+  <script>
+    const translations = {
+      uz: {
+        title: "Healvia AI ishga tushmoqda...",
+        subtitle: "Sizning sog‘lig‘ingiz uchun yaratilgan eng ilg‘or sun’iy intellekt platformasi. Healvia — bu dorilar, tahlil, diagnostika va psixologik maslahatlarni birlashtirgan tibbiy ekotizim.",
+        footer: "💚 Healvia 2025 — Sun’iy intellekt bilan tibbiyot kelajagini yaratamiz."
+      },
+      ru: {
+        title: "Healvia AI запускается...",
+        subtitle: "Самая передовая AI-платформа для вашего здоровья. Healvia объединяет лекарства, анализы, диагностику и психологическую поддержку в единую медицинскую экосистему.",
+        footer: "💚 Healvia 2025 — Создаём будущее медицины с искусственным интеллектом."
+      },
+      en: {
+        title: "Healvia AI is launching...",
+        subtitle: "The most advanced AI platform for your health. Healvia combines medicine, diagnostics, psychology, and nutrition into one intelligent healthcare ecosystem.",
+        footer: "💚 Healvia 2025 — Building the future of healthcare with Artificial Intelligence."
+      }
+    };
+
+    const langSelect = document.getElementById("langSelect");
+    const savedLang = localStorage.getItem("language") || "uz";
+    langSelect.value = savedLang;
+    applyLang(savedLang);
+
+    langSelect.addEventListener("change", (e) => {
+      const lang = e.target.value;
+      localStorage.setItem("language", lang);
+      applyLang(lang);
+    });
+
+    function applyLang(lang) {
+      document.querySelectorAll("[data-key]").forEach(el => {
+        const key = el.getAttribute("data-key");
+        el.textContent = translations[lang][key];
+      });
+    }
+
+    // 5 soniyadan keyin index.html ga o'tish
+    setTimeout(() => {
+      window.location.href = "index.html";
+    }, 5000);
+  </script>
+</body>
+</html>

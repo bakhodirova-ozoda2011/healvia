@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Healvia — Salomatlik tarixi</title>
+  <style>
+    body {
+      font-family: "Poppins", sans-serif;
+      background: linear-gradient(135deg, #f8fffe, #e8fdfd, #e3f2fd);
+      color: #222;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      text-align: center;
+      background: #00b894;
+      color: white;
+      padding: 20px;
+      border-bottom-left-radius: 20px;
+      border-bottom-right-radius: 20px;
+    }
+    .container {
+      max-width: 800px;
+      margin: 30px auto;
+      background: white;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    }
+    h2 {
+      color: #00b894;
+      margin-top: 0;
+    }
+    .profile-info {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+      margin-bottom: 25px;
+    }
+    .box {
+      background: #f9f9f9;
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    }
+    .recommendation {
+      background: #e8fff2;
+      padding: 20px;
+      border-left: 5px solid #00b894;
+      border-radius: 10px;
+      margin-top: 25px;
+    }
+    button {
+      background: #00b894;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 10px;
+      font-size: 15px;
+      cursor: pointer;
+      transition: 0.3s;
+      display: block;
+      margin: 25px auto 0;
+    }
+    button:hover {
+      background: #00916e;
+    }
+    footer {
+      text-align: center;
+      margin: 30px 0;
+      color: #777;
+      font-size: 13px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>💊 Healvia AI — Salomatlik tarixi</h1>
+  </header>
+
+  <div class="container">
+    <h2 id="username">👤 Foydalanuvchi ma’lumotlari</h2>
+    <div class="profile-info" id="profile-info"></div>
+
+    <div class="box" id="bmi-box"></div>
+
+    <div class="recommendation" id="recommendations">
+      <h3>🩺 AI tavsiyasi:</h3>
+      <p id="advice-text">Ma’lumotlar yuklanmoqda...</p>
+    </div>
+
+    <button onclick="editProfile()">✏️ Ma’lumotlarni o‘zgartirish</button>
+  </div>
+
+  <footer>© 2025 Healvia — Shaxsiy tibbiy yordamchi</footer>
+
+  <script>
+    // 🔹 Profilni chaqirish
+    const profile = JSON.parse(localStorage.getItem("healvia_profile"));
+    if (!profile) {
+      alert("Avval profilni to‘ldiring!");
+      window.location.href = "profile.html";
+    }
+
+    document.getElementById("username").textContent = `💚 ${profile.name} — Salomatlik tarixi`;
+
+    // 🔹 Ma’lumotlarni chiqarish
+    const infoBox = document.getElementById("profile-info");
+    infoBox.innerHTML = `
+      <div class="box"><b>🧍 Ism:</b> ${profile.name}</div>
+      <div class="box"><b>🎂 Yosh:</b> ${profile.age} yosh</div>
+      <div class="box"><b>🚻 Jins:</b> ${profile.gender}</div>
+      <div class="box"><b>📏 Bo‘yi:</b> ${profile.height} sm</div>
+      <div class="box"><b>⚖️ Vazni:</b> ${profile.weight} kg</div>
+      <div class="box"><b>🧬 Kasalliklar:</b> ${profile.conditions || "Yo‘q"}</div>
+      <div class="box"><b>💊 Dorilar/allergiyalar:</b> ${profile.meds || "Yo‘q"}</div>
+      <div class="box"><b>🎯 Maqsad:</b> ${profile.goal}</div>
+    `;
+
+    // 🔹 BMI hisoblash
+    const heightM = profile.height / 100;
+    const bmi = (profile.weight / (heightM * heightM)).toFixed(1);
+    let bmiText = "";
+    if (bmi < 18.5) bmiText = "Ortiqcha ozg‘inlik";
+    else if (bmi < 25) bmiText = "Sog‘lom vazn";
+    else if (bmi < 30) bmiText = "Ortiqcha vazn";
+    else bmiText = "Semizlik";
+
+    document.getElementById("bmi-box").innerHTML = `
+      <b>📊 BMI (Tana massasi indeksi):</b> ${bmi} — <i>${bmiText}</i>
+    `;
+
+    // 🔹 AI tavsiyasi
+    const advice = document.getElementById("advice-text");
+    if (profile.goal === "vazn") {
+      advice.textContent = "Har kuni 30 daqiqa yurish va sog‘lom ovqatlanish rejasiga amal qiling. Shakarli ichimliklardan saqlaning.";
+    } else if (profile.goal === "uyqu") {
+      advice.textContent = "Uyqu jadvalini barqaror qiling, ekran vaqtini kamaytiring va yotishdan 2 soat oldin kofe ichmang.";
+    } else if (profile.goal === "stress") {
+      advice.textContent = "Nafas mashqlari va meditatsiya bilan shug‘ullaning. Har kuni 15 daqiqa tinchlikda o‘zingizga vaqt ajrating.";
+    } else {
+      advice.textContent = "Sog‘lom turmush tarzi uchun har kuni suv iching, harakatda bo‘ling va yetarli uyqu oling.";
+    }
+
+    function editProfile() {
+      window.location.href = "profile.html";
+    }
+  </script>
+</body>
+</html>
